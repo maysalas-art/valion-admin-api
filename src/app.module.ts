@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AdminsModule } from './admins/admins.module';
 import { DinoQualityModule } from './dino-quality/dino-quality.module';
 import { DinoModule } from './dino/dino.module';
+import { DinoSizeModule } from './dino-size/dino-size.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { DinoModule } from './dino/dino.module';
     AdminsModule,
     DinoQualityModule,
     DinoModule,
+    DinoSizeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
