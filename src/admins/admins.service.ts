@@ -28,7 +28,9 @@ export class AdminsService {
 
     //ACTUALIZAR UN ADMINISTRADOR POR ID
     async update(id: string, updateAdminDto: UpdateAdminDto): Promise<Admin | null> {
-        return this.adminModel.findByIdAndUpdate(id, updateAdminDto, { new: true }).exec();
+        return this.adminModel.findByIdAndUpdate(id, updateAdminDto, { 
+            new: true 
+        }).exec();
     }
 
     //ELIMINAR UN ADMINISTRADOR POR ID
