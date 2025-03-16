@@ -12,7 +12,7 @@ export class DinoQualityService {
     //CREAR UN NUEVO QUALITY
     async create(createDinoQualityDto: CreateDinoQualityDto): Promise<DinoQuality> {
         const createDinoQuality = await this.dinoQualityModel.create(createDinoQualityDto);
-        return createDinoQuality;
+        return createDinoQuality.save();
     }
 
     //OBTENER TODOS LOS DINOS

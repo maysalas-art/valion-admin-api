@@ -18,5 +18,5 @@ export class CreateDinoQualityDto {
         couplePrice: number;
         usdIndividualPrice: number;
         usdCouplePrice: number;
-    }
+    };
 }
