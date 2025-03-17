@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Dino } from './schemas/dino.schema';
 import { CreateDinoDto } from './dto/create-dino.dto';
+import { UpdateDinoDto } from './dto/update-dino.dto';
 
 @Injectable()
 export class DinoService {
@@ -16,32 +17,13 @@ export class DinoService {
 
     //OBTENER TODOS LOS DINOS
     async findAll(): Promise<Dino[]> {
-        try {
-          const dinos = await this.dinoModel.find().populate('quality').exec(); // Incluye los detalles de DinoQuality
-          if (!dinos || dinos.length === 0) {
-            throw new NotFoundException('No se encontraron dinos');
-          }
-          return dinos;
-        } catch (error) {
-          throw new Error('Error al obtener todos los dinos: ' + error.message);
-        }
-      }
+        return this.dinoModel.find().exec();
+    }
 
     //OBTENER POR ID
     async findOne(id: string): Promise<Dino | null> {
-        if (!id) {
-          throw new Error('El ID no puede estar vacío');
-        }
-        try {
-          const dino = await this.dinoModel.findById(id).populate('quality').exec(); // Incluye los detalles de DinoQuality
-          if (!dino) {
-            throw new NotFoundException('Dino no encontrado');
-          }
-          return dino;
-        } catch (error) {
-          throw new Error('Error al buscar por ID: ' + error.message);
-        }
-      }
+        return this.dinoModel.findById(id).exec();
+    }
 
     //OBTENER POR NOMBRE
     async findByName(name: string): Promise<Dino | null> {
@@ -61,6 +43,13 @@ export class DinoService {
     async findAllBySize(size: string): Promise<Dino[] | null> {
         return this.dinoModel.find({
             id: size
+        }).exec();
+    }
+
+    //ACTUALIZAR UN DINO
+    async update(id: string, updateDinoDto: UpdateDinoDto): Promise<Dino | null> {
+        return this.dinoModel.findByIdAndUpdate(id, updateDinoDto, {
+            new: true
         }).exec();
     }
 }
