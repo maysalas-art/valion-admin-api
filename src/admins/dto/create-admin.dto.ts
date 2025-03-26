@@ -1,5 +1,6 @@
 export class CreateAdminDto {
-    readonly nombre: string;
-    readonly email: string;
-    readonly contraseña: string;
+    readonly name: string;
+    readonly username: string;
+    readonly eos: string;
+    readonly password: string; 
 }

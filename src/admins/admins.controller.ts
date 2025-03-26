@@ -6,10 +6,12 @@ import {
     Param,
     Put,
     Delete,
+    UnauthorizedException,
 } from '@nestjs/common';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { AdminsService } from './admins.service';
+import { error } from 'console';
 
 @Controller('admins')
 export class AdminsController {
@@ -19,6 +21,16 @@ export class AdminsController {
     @Post()
     async create(@Body() createAdminDto: CreateAdminDto) {
         return this.adminsService.create(createAdminDto);
+    }
+
+    //LOGIN ADMINS
+    @Post('login')
+    async login(@Body() updateAdminDto: { username: string, password: string }) {
+        const admin = await this.adminsService.validateAdmin(updateAdminDto.username, updateAdminDto.password);
+        if(!admin) {
+            throw new UnauthorizedException('Credenciales Inválidas');
+        }
+        return { message: 'Login exitoso', admin };
     }
 
     // Obtener todos los administradores

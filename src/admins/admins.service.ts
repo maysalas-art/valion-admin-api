@@ -16,6 +16,15 @@ export class AdminsService {
         return createdAdmin.save();
     }
 
+    //LOGIN ADMINS
+    async validateAdmin(username: string, pass: string): Promise<Admin | null> {
+        const admin = await this.adminModel.findOne({ username }).exec();
+        if(admin && admin.password === pass) {
+            return admin;
+        }
+        return null;
+    }
+
     //OBTENER TODOS LOS ADMINISTRADORES
     async findAll(): Promise<Admin[]> {
         return this.adminModel.find().exec();
