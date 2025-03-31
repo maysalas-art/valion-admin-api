@@ -23,14 +23,21 @@ export class AdminsController {
         return this.adminsService.create(createAdminDto);
     }
 
-    //LOGIN ADMINS
+    // LOGIN ADMINS
     @Post('login')
     async login(@Body() updateAdminDto: { username: string, password: string }) {
         const admin = await this.adminsService.validateAdmin(updateAdminDto.username, updateAdminDto.password);
-        if(!admin) {
+        if (!admin) {
             throw new UnauthorizedException('Credenciales Inválidas');
         }
-        return { message: 'Login exitoso', admin };
+        return { message: 'Login exitoso', admin }; // Devuelve 'admin' para consistencia
+    }
+
+    // REGISTRAR ADMIN
+    @Post('signup')
+    async signup(@Body() createAdminDto: { name: string; username: string; eos: string; password: string }) {
+        const newAdmin = await this.adminsService.create(createAdminDto);
+        return { message: 'Usuario registrado exitosamente', admin: newAdmin }; // Devuelve 'admin' para consistencia
     }
 
     // Obtener todos los administradores
